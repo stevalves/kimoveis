@@ -17,9 +17,9 @@ const userSchema = z.object({
 const returnUserSchema = userSchema
   .extend({
     id: z.number(),
-    createAt: z.date().default(new Date()),
+    createdAt: z.date(),
     updatedAt: z.date(),
-    deletedAt: z.date().nullable().default(null),
+    deletedAt: z.date().nullable(),
   })
   .omit({ password: true });
 
