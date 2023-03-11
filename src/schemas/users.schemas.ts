@@ -17,13 +17,24 @@ const userSchema = z.object({
 const returnUserSchema = userSchema
   .extend({
     id: z.number(),
-    createAt: z.date().default(new Date),
+    createAt: z.date().default(new Date()),
     updatedAt: z.date(),
     deletedAt: z.date().nullable().default(null),
   })
   .omit({ password: true });
 
-const returnUsersSchema = returnUserSchema.array() 
-const userUpdateSchema = userSchema.partial()
+const returnUsersSchema = returnUserSchema.array();
+const userUpdateSchema = z.object({
+  name: z.string().max(45).min(3).optional(),
+  email: z.string().email().max(45).min(10).optional(),
+  password: z
+    .string()
+    .max(120)
+    .min(4)
+    .transform((p) => {
+      return hashSync(p, 10);
+    })
+    .optional(),
+});
 
 export { userSchema, returnUserSchema, returnUsersSchema, userUpdateSchema };
