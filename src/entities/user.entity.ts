@@ -24,13 +24,13 @@ class User {
   @Column({ length: 120 })
   password: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: "date" })
   deletedAt: string;
 }
 

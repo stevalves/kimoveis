@@ -17,9 +17,9 @@ const userSchema = z.object({
 const returnUserSchema = userSchema
   .extend({
     id: z.number(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
-    deletedAt: z.date().nullable(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    deletedAt: z.string().nullable(),
   })
   .omit({ password: true });
 
@@ -31,9 +31,6 @@ const userUpdateSchema = z.object({
     .string()
     .max(120)
     .min(4)
-    .transform((p) => {
-      return hashSync(p, 10);
-    })
     .optional(),
 });
 

@@ -17,7 +17,7 @@ const createUserController = async (req: Request, res: Response) => {
 }
 
 const readUsersController = async (req: Request, res: Response) => {
-    if(!req.user.admin) throw new AppError("Insufficient Permission", 403);
+    if(!req.user.admin) throw new AppError("Insufficient permission", 403);
 
     const users: iUsersReturn = await readUsersService()
 
@@ -27,7 +27,7 @@ const readUsersController = async (req: Request, res: Response) => {
 
 const deleteUserController = async (req: Request, res: Response) => {
     const userId = Number(req.params.id)
-    if(!req.user.admin && req.user.id !== userId) throw new AppError("Insufficient Permission", 403);
+    if(!req.user.admin && req.user.id !== userId) throw new AppError("Insufficient permission", 403);
 
     await deleteUserService(Number(req.params.id))
 
@@ -38,7 +38,7 @@ const deleteUserController = async (req: Request, res: Response) => {
 const updateUserController = async (req: Request, res: Response) => {
     const userId = Number(req.params.id)
     const userData = req.body
-    if(!req.user.admin && req.user.id !== userId) throw new AppError("Insufficient Permission", 403);
+    if(!req.user.admin && req.user.id !== userId) throw new AppError("Insufficient permission", 403);
 
 
     const updatedUser = await updateUserService(userData, userId)

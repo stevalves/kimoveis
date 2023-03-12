@@ -3,11 +3,11 @@ import { AppError } from "../errors";
 import jwt from "jsonwebtoken"
 import "dotenv/config"
 
-const validateToken = (req: Request, res: Response, next: NextFunction): Response | void => {
+const validateTokenMiddleware = (req: Request, res: Response, next: NextFunction): Response | void => {
 
     let token = req.headers.authorization
 
-    if(!token) throw new AppError("Token is missing", 401)
+    if(!token) throw new AppError("Missing bearer token", 401)
 
     token = token.split(' ')[1]
     jwt.verify(token, process.env.SECRET_KEY!, (err, dec: any) => {
@@ -23,4 +23,4 @@ const validateToken = (req: Request, res: Response, next: NextFunction): Respons
 
 }
 
-export default validateToken
+export default validateTokenMiddleware
