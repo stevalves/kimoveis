@@ -41,7 +41,7 @@ class RealEstate {
   category?: Category | null | undefined;
 
   @OneToMany(() => Schedule, re => re.realEstate)
-  schedule: Schedule
+  schedules: Schedule
   
 }
 
