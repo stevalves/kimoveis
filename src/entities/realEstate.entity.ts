@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { Address } from "./addresses.entity";
 import { Category } from "./categories.entity";
+import { Schedule } from "./schedule.entity";
 
 @Entity("real_estate")
 class RealEstate {
@@ -38,6 +39,9 @@ class RealEstate {
 
   @ManyToOne(() => Category, { nullable: true })
   category?: Category | null | undefined;
+
+  @OneToMany(() => Schedule, re => re.realEstate)
+  schedule: Schedule
   
 }
 

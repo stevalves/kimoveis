@@ -10,7 +10,7 @@ const createLoginController = async (
 
   const token = await createLoginService(loginData);
 
-  return res.json(token);
+  return res.json({token: token});
 };
 
 export { createLoginController };

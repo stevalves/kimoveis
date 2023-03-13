@@ -16,7 +16,7 @@ const emailExistsMiddleware = async (
   });
 
   if (findEmailUser) {
-    throw new AppError("Email already exists.", 409);
+    throw new AppError("Email already exists", 409);
   }
 
   return next();
