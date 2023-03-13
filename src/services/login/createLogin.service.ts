@@ -34,4 +34,4 @@ const createLoginService = async (loginData: iLogin): Promise<string> => {
   return token;
 };
 
-export default createLoginService
+export default createLoginService;

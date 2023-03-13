@@ -8,6 +8,6 @@ const addressSchema = z.object({
   state: z.string().max(2),
 });
 
-const addressSchemaReturn = addressSchema.extend({id:z.number()})
+const addressSchemaReturn = addressSchema.extend({ id: z.number() });
 
 export { addressSchema, addressSchemaReturn };

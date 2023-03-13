@@ -8,6 +8,6 @@ const categorySchemaReturn = categorySchema.extend({
   id: z.number(),
 });
 
-const categoriesSchemaReturn = categorySchemaReturn.array()
+const categoriesSchemaReturn = categorySchemaReturn.array();
 
 export { categorySchema, categorySchemaReturn, categoriesSchemaReturn };

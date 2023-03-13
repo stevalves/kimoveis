@@ -5,17 +5,15 @@ import { Repository } from "typeorm";
 import { returnUserSchema } from "../../schemas/users.schemas";
 
 const createUserService = async (userData: iUser): Promise<iUserReturn> => {
+  const userRepository: Repository<iUser> = AppDataSource.getRepository(User);
 
-    const userRepository: Repository<iUser> = AppDataSource.getRepository(User)
+  const user = userRepository.create(userData);
 
-    const user = userRepository.create(userData)
+  await userRepository.save(user);
 
-    await userRepository.save(user)
-    
-    const newUser = returnUserSchema.parse(user)
+  const newUser = returnUserSchema.parse(user);
 
-    return newUser
-
+  return newUser;
 };
 
-export default createUserService
+export default createUserService;

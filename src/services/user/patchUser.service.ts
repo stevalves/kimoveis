@@ -4,25 +4,26 @@ import { User } from "../../entities";
 import { iUserEdit, iUserReturn } from "../../interfaces/users.interfaces";
 import { returnUserSchema } from "../../schemas/users.schemas";
 
-const updateUserService = async (userData: iUserEdit, userId: number): Promise<iUserReturn> => {
+const updateUserService = async (
+  userData: iUserEdit,
+  userId: number
+): Promise<iUserReturn> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-    const userRepository: Repository<User> = AppDataSource.getRepository(User)
+  const oldUser = await userRepository.findOneBy({
+    id: userId,
+  });
 
-    const oldUser = await userRepository.findOneBy({
-        id: userId
-    })
+  const updatedUser = userRepository.create({
+    ...oldUser,
+    ...userData,
+  });
 
-    const updatedUser = userRepository.create({
-        ...oldUser,
-        ...userData
-    })
+  await userRepository.save(updatedUser);
 
-    await userRepository.save(updatedUser)
+  const user = returnUserSchema.parse(updatedUser);
 
-    const user = returnUserSchema.parse(updatedUser)
+  return user;
+};
 
-    return user
-
-}
-
-export default updateUserService
+export default updateUserService;

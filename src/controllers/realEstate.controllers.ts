@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-import { RealEstate } from "../entities";
 import { AppError } from "../errors";
-import { iRealEstateReturn } from "../interfaces/realEstate.interfaces";
 import createRealEstateService from "../services/realEstate/createRealEstate.service";
 import realRealEstatesService from "../services/realEstate/readRealEstates.service";
 
@@ -11,18 +9,18 @@ const createRealEstate = async (
 ): Promise<Response> => {
   if (!req.user.admin) throw new AppError("Insufficient permission", 403);
 
-    const newRealEstate  = await createRealEstateService(req.body)
+  const newRealEstate = await createRealEstateService(req.body);
 
-    return res.status(201).json(newRealEstate)
-
+  return res.status(201).json(newRealEstate);
 };
 
-const realRealEstates = async (req: Request, res: Response): Promise<Response> => {
+const realRealEstates = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const list = await realRealEstatesService();
 
-    const list = await realRealEstatesService()
-
-    return res.json(list)
-
-}
+  return res.json(list);
+};
 
 export { createRealEstate, realRealEstates };

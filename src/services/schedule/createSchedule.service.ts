@@ -11,6 +11,36 @@ const createScheduleService = async (shBody: iSchema, userId: number) => {
   const shedulesRepository: Repository<Schedule> =
     AppDataSource.getRepository(Schedule);
 
+  const alreadySchedule = await shedulesRepository
+    .createQueryBuilder("schedules")
+    .select(["re", "schedules"])
+    .innerJoin("schedules.realEstate", "re")
+    .where("re.id = :id", { id: shBody.realEstateId })
+    .andWhere("schedules.hour = :hour", { hour: shBody.hour })
+    .getOne();
+
+  const alreadyUserSchedule = await shedulesRepository
+    .createQueryBuilder("schedules")
+    .select(["user", "schedules"])
+    .innerJoin("schedules.user", "user")
+    .where("user.id = :id", { id: userId })
+    .andWhere("schedules.hour = :hour", { hour: shBody.hour })
+    .getOne();
+
+  if (alreadyUserSchedule !== null) {
+    throw new AppError(
+      "User schedule to this real estate at this date and time already exists",
+      409
+    );
+  }
+
+  if (alreadySchedule !== null) {
+    throw new AppError(
+      "Schedule to this real estate at this date and time already exists",
+      409
+    );
+  }
+
   const rEstate = await realEstateRepository.findOneBy({
     id: shBody.realEstateId,
   });

@@ -7,8 +7,8 @@ const readSchedulesByRealEstateIdService = (realEstateId: number) => {
   const reRepo: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
 
-    const re = reRepo.findOneBy({id: realEstateId})
-    if(!re) throw new AppError("RealEstate not found", 404)
+  const re = reRepo.findOneBy({ id: realEstateId });
+  if (!re) throw new AppError("RealEstate not found", 404);
 
   const shedulesByRealEstates = reRepo
     .createQueryBuilder("re")

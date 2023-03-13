@@ -5,32 +5,43 @@ import createCategoryService from "../services/category/createCategory.service";
 import readCategoriesService from "../services/category/readCategories.services";
 import readRealEstateByCategoryService from "../services/category/readRealEstateByCategory.service";
 
-const createCategoryController = async (req: Request, res: Response): Promise<Response> => {
-    if(!req.user.admin) throw new AppError("Insufficient permission", 403);
+const createCategoryController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  if (!req.user.admin) throw new AppError("Insufficient permission", 403);
 
-    const categoryData: iCategory = req.body;
+  const categoryData: iCategory = req.body;
 
-    const newCategory: iCategoryReturn = await createCategoryService(categoryData);
+  const newCategory: iCategoryReturn = await createCategoryService(
+    categoryData
+  );
 
-    return res.status(201).json(newCategory);
+  return res.status(201).json(newCategory);
+};
 
-}
+const readCategoriesController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const catList = await readCategoriesService();
 
-const readCategoriesController = async (req: Request, res: Response): Promise<Response> => {
+  return res.json(catList);
+};
 
-    const catList = await readCategoriesService()
+const readRealEstateByCategoryController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const id = Number(req.params.id);
 
-    return res.json(catList)
+  const list = await readRealEstateByCategoryService(id);
 
-}
+  return res.json(...list);
+};
 
-const readRealEstateByCategoryController = async (req: Request, res: Response): Promise<Response> => {
-    const id = Number(req.params.id)
-
-    const list = await readRealEstateByCategoryService(id)
-
-    return res.json(...list)
-
-}
-
-export { createCategoryController, readCategoriesController, readRealEstateByCategoryController }
+export {
+  createCategoryController,
+  readCategoriesController,
+  readRealEstateByCategoryController,
+};

@@ -1,19 +1,18 @@
-import { Repository } from "typeorm"
-import { AppDataSource } from "../../data-source"
-import { RealEstate } from "../../entities"
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../data-source";
+import { RealEstate } from "../../entities";
 
 const realRealEstatesService = async (): Promise<RealEstate[]> => {
+  const realEstateRepository: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
 
-    const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
+  const list = await realEstateRepository.find({
+    relations: {
+      address: true,
+    },
+  });
 
-    const list = await realEstateRepository.find({
-        relations: {
-            address: true,
-        }
-    })
+  return list;
+};
 
-    return list
-
-}
-
-export default realRealEstatesService
+export default realRealEstatesService;

@@ -1,14 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodTypeAny } from "zod";
 
-const validateData = (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction) => {
+const validateData =
+  (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction) => {
+    const validatedData = schema.parse(req.body);
 
-    const validatedData = schema.parse(req.body)
+    req.body = validatedData;
 
-    req.body = validatedData
+    return next();
+  };
 
-    return next()
-
-}
-
-export default validateData
+export default validateData;

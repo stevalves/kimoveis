@@ -15,10 +15,10 @@ const readRealEstateByCategoryService = async (categoryId: number) => {
   if (!category) throw new AppError("Category not found", 404);
 
   const realEstateList = await categoryRespository.find({
-    relations: { realEstate: true},
+    relations: { realEstate: true },
     where: {
-        id: categoryId
-    }
+      id: categoryId,
+    },
   });
 
   return realEstateList;
