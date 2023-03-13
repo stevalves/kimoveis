@@ -10,8 +10,8 @@ class Category {
   @Column({ length: 45, unique: true })
   name: string;
 
-  @OneToMany(() => RealEstate, cat => cat.id)
-  address: RealEstate
+  @OneToMany(() => RealEstate, cat => cat.category)
+  realEstate: RealEstate[]
 
 }
 

@@ -3,6 +3,7 @@ import { AppError } from "../errors";
 import { iCategory, iCategoryReturn } from "../interfaces/category.interfaces";
 import createCategoryService from "../services/category/createCategory.service";
 import readCategoriesService from "../services/category/readCategories.services";
+import readRealEstateByCategoryService from "../services/category/readRealEstateByCategory.service";
 
 const createCategoryController = async (req: Request, res: Response): Promise<Response> => {
     if(!req.user.admin) throw new AppError("Insufficient permission", 403);
@@ -23,4 +24,13 @@ const readCategoriesController = async (req: Request, res: Response): Promise<Re
 
 }
 
-export { createCategoryController, readCategoriesController }
+const readRealEstateByCategoryController = async (req: Request, res: Response): Promise<Response> => {
+    const id = Number(req.params.id)
+
+    const list = await readRealEstateByCategoryService(id)
+
+    return res.json(...list)
+
+}
+
+export { createCategoryController, readCategoriesController, readRealEstateByCategoryController }

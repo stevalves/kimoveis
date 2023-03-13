@@ -11,7 +11,7 @@ const createRealEstate = async (
 ): Promise<Response> => {
   if (!req.user.admin) throw new AppError("Insufficient permission", 403);
 
-    const newRealEstate: RealEstate  = await createRealEstateService(req.body)
+    const newRealEstate  = await createRealEstateService(req.body)
 
     return res.status(201).json(newRealEstate)
 

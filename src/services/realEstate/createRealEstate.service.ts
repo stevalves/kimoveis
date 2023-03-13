@@ -1,27 +1,39 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Address, RealEstate } from "../../entities";
+import { Address, Category, RealEstate } from "../../entities";
 import { iRealEstate } from "../../interfaces/realEstate.interfaces";
 import { addressSchemaReturn } from "../../schemas/address.schemas";
-import { returnRealEstateSchema } from "../../schemas/realEstate.schema";
 
 const createRealEstateService = async (realEstateData: iRealEstate): Promise<any> => {
 
     const addressRepository: Repository<Address> = AppDataSource.getRepository(Address)
     const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
+    const categoryRespository: Repository<Category> = AppDataSource.getRepository(Category)
 
     const newAddress = addressRepository.create(realEstateData.address)
     await addressRepository.save(newAddress)
-    const returnAddress = addressSchemaReturn.parse(newAddress)
+    const addReturn = addressSchemaReturn.parse(newAddress)
 
-    const newRealEstate:any = realEstateRepository.create(realEstateData)
-    delete newRealEstate.address
-    newRealEstate.addressId = returnAddress.id
-    console.log(newRealEstate)
+    let category = null
+    if(realEstateData.categoryId){
+        category = await categoryRespository.findOne({
+            where: {
+                id: realEstateData.categoryId
+            }
+        })
+    }
+
+    const create = {
+        value: realEstateData.value,
+        size: realEstateData.size,
+        address: addReturn,
+        category: category,
+    }
+
+    const newRealEstate = realEstateRepository.create(create)
     await realEstateRepository.save(newRealEstate)
-    const createEstateData = returnRealEstateSchema.parse(newRealEstate)
 
-    return createEstateData
+    return newRealEstate
 
 }
 
