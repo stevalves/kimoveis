@@ -1,6 +1,6 @@
 # KImóveis - TypeORM com Relacionamentos
 
-### *O Objetivo foi desenvolver um serviço de back-end responsável por gerenciar uma imobiliária utilizando TypeORM e relacionamentos com base no [Diagrama](https://drive.google.com/file/d/1Y3WP0b3zRfMei6lbpVneNTzhSEDHMZZu/view?usp=sharing)*
+### *O Objetivo foi desenvolver um serviço de back-end responsável por gerenciar uma imobiliária utilizando TypeORM e relacionamentos com base no [diagrama](https://drive.google.com/file/d/1Y3WP0b3zRfMei6lbpVneNTzhSEDHMZZu/view?usp=sharing)*
 
 ###
 
@@ -24,6 +24,18 @@ npm init -y
 
 # caso use yarn
 yarn init -y
+```
+
+## Rodar o servidor
+
+Instalada as dependências, inicie o servidor utilizando o comando abaixo.
+
+```bash
+# caso use npm
+npm run dev
+
+# caso use yarn
+yarn dev
 ```
 
 ## Sobre os testes
