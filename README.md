@@ -2,6 +2,17 @@
 
 ### *O Objetivo foi desenvolver um serviço de back-end responsável por gerenciar uma imobiliária utilizando TypeORM e relacionamentos com base no [diagrama](https://drive.google.com/file/d/1Y3WP0b3zRfMei6lbpVneNTzhSEDHMZZu/view?usp=sharing)*
 
+## **Tecnologias e bibliotecas**:
+* Node
+* Express
+* TypeScript
+* bcryptjs
+* dotenv
+* jsonwebtoken
+* pg/pg-format
+* typeorm
+* zod
+
 ###
 
 Para inciar este projeto, é necessário instalar as dependências, que serão utilizadas nos testes. Portanto utilize o comando abaixo para instalar tais dependências:
